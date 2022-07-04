@@ -2,14 +2,15 @@
 <html>
 
     <?php 
-    // session_start();
+    session_start();
  
-    // // Check if the user is logged in, if not then redirect him to login page
-    // if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
-    //     header("location: login.php");
-    //     exit;
-    // }
-    include('webpages/top_nav.html'); ?>
+    // Check if the user is logged in, if not then redirect him to login page
+    if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
+        header("location: login.php");
+        exit;
+    }
+	
+    include('nav-bar/top_nav.html'); ?>
     <section id="home-section" class="hero">
 		  <div class="home-slider owl-carousel">
 	      <div class="slider-item" style="background-image: url(images/bg_1.jpg);">
@@ -535,7 +536,7 @@
       </div>
     </section>
 
-   <?php include('webpages/footer.html');?>
+   <?php include('nav-bar/footer.html');?>
     
   
   
