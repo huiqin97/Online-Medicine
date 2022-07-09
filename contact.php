@@ -11,12 +11,12 @@
  // }
     include('nav-bar/top_nav.html'); ?>
   
-    <div class="hero-wrap hero-bread" style="background-image: url('images/bg_1.jpg');">
+    <div class="hero-wrap hero-bread" style="background-image: url('images/banner-contact.jpg');">
       <div class="container">
         <div class="row no-gutters slider-text align-items-center justify-content-center">
           <div class="col-md-9 ftco-animate text-center">
-          	<p class="breadcrumbs"><span class="mr-2"><a href="index.html">Home</a></span> <span>Contact us</span></p>
-            <h1 class="mb-0 bread">Contact us</h1>
+          	<p class="breadcrumbs"><span class="mr-2"><a href="index.php"  style="color: red;">Home</a></span> <span style="color: red;">Contact us</span></p>
+            <h1 class="mb-0 bread"  style="color: red;">Contact us</h1>
           </div>
         </div>
       </div>
@@ -28,27 +28,27 @@
           <div class="w-100"></div>
           <div class="col-md-3 d-flex">
           	<div class="info bg-white p-4">
-	            <p><span>Address:</span> 198 West 21th Street, Suite 721 New York NY 10016</p>
+	            <p><span>Address:</span> 12, Jalan 123, Kuala Lumpur, Malaysia</p>
 	          </div>
           </div>
           <div class="col-md-3 d-flex">
           	<div class="info bg-white p-4">
-	            <p><span>Phone:</span> <a href="tel://1234567920">+ 1235 2355 98</a></p>
+	            <p><span>Phone:</span> <a href="tel://12 3456789">+6012 3456789</a></p>
 	          </div>
           </div>
           <div class="col-md-3 d-flex">
           	<div class="info bg-white p-4">
-	            <p><span>Email:</span> <a href="mailto:info@yoursite.com">info@yoursite.com</a></p>
+	            <p><span>Email:</span> <a href="mailto:onlinemec@email.com">onlinemec@email.com</a></p>
 	          </div>
           </div>
           <div class="col-md-3 d-flex">
           	<div class="info bg-white p-4">
-	            <p><span>Website</span> <a href="#">yoursite.com</a></p>
+	            <p><span>Website</span> <a href="#">www.onlinemec.com</a></p>
 	          </div>
           </div>
         </div>
         <div class="row block-9">
-          <div class="col-md-6 order-md-last d-flex">
+          <div class="col-md-12 order-md-last d-flex">
             <form action="#" class="bg-white p-5 contact-form">
               <div class="form-group">
                 <input type="text" class="form-control" placeholder="Your Name">
@@ -68,10 +68,10 @@
             </form>
           
           </div>
-
+<!-- 
           <div class="col-md-6 d-flex">
           	<div id="map" class="bg-white"></div>
-          </div>
+          </div> -->
         </div>
       </div>
     </section>

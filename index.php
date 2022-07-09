@@ -2,41 +2,41 @@
 <html>
 
     <?php 
-    session_start();
+    // session_start();
  
-    // Check if the user is logged in, if not then redirect him to login page
-    if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
-        header("location: login.php");
-        exit;
-    }
+    // // Check if the user is logged in, if not then redirect him to login page
+    // if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
+    //     header("location: login.php");
+    //     exit;
+    // }
 	
     include('nav-bar/top_nav.html'); ?>
     <section id="home-section" class="hero">
 		  <div class="home-slider owl-carousel">
-	      <div class="slider-item" style="background-image: url(images/bg_1.jpg);">
+	      <div class="slider-item" style="background-image: url(images/banner-header-family.jpg);">
 	      	<div class="overlay"></div>
 	        <div class="container">
 	          <div class="row slider-text justify-content-center align-items-center" data-scrollax-parent="true">
 
 	            <div class="col-md-12 ftco-animate text-center">
-	              <h1 class="mb-2">We serve Fresh Vegestables &amp; Fruits</h1>
-	              <h2 class="subheading mb-4">We deliver organic vegetables &amp; fruits</h2>
-	              <p><a href="#" class="btn btn-primary">View Details</a></p>
+	              <h1 class="mb-2">For your daily health &amp; living</h1>
+	              <h2 class="subheading mb-4">We deliver your needs</h2>
+	              <p><a href="index.php#details" class="btn btn-primary">View Details</a></p>
 	            </div>
 
 	          </div>
 	        </div>
 	      </div>
 
-	      <div class="slider-item" style="background-image: url(images/bg_2.jpg);">
+	      <div class="slider-item" style="background-image: url(images/banner-header-pill.jpg);">
 	      	<div class="overlay"></div>
 	        <div class="container">
 	          <div class="row slider-text justify-content-center align-items-center" data-scrollax-parent="true">
 
 	            <div class="col-sm-12 ftco-animate text-center">
-	              <h1 class="mb-2">100% Fresh &amp; Organic Foods</h1>
-	              <h2 class="subheading mb-4">We deliver organic vegetables &amp; fruits</h2>
-	              <p><a href="#" class="btn btn-primary">View Details</a></p>
+	              <h1 class="mb-2">Helping you save more on medication</h1>
+	              <h2 class="subheading mb-4">Get your medicine in fingertips </h2>
+	              <p><a href="index.php#details" class="btn btn-primary">View Details</a></p>
 	            </div>
 
 	          </div>
@@ -45,7 +45,7 @@
 	    </div>
     </section>
 
-    <section class="ftco-section">
+    <section class="ftco-section" id='details'>
 			<div class="container">
 				<div class="row no-gutters ftco-services">
           <div class="col-md-3 text-center d-flex align-self-stretch ftco-animate">
@@ -55,17 +55,17 @@
               </div>
               <div class="media-body">
                 <h3 class="heading">Free Shipping</h3>
-                <span>On order over $100</span>
+                <span>On order over RM100</span>
               </div>
             </div>      
           </div>
           <div class="col-md-3 text-center d-flex align-self-stretch ftco-animate">
             <div class="media block-6 services mb-md-0 mb-4">
               <div class="icon bg-color-2 d-flex justify-content-center align-items-center mb-2">
-            		<span class="flaticon-diet"></span>
+            		<span class="flaticon-box"></span>
               </div>
               <div class="media-body">
-                <h3 class="heading">Always Fresh</h3>
+                <h3 class="heading">100% Genuine</h3>
                 <span>Product well package</span>
               </div>
             </div>    
@@ -102,23 +102,23 @@
 					<div class="col-md-8">
 						<div class="row">
 							<div class="col-md-6 order-md-last align-items-stretch d-flex">
-								<div class="category-wrap-2 ftco-animate img align-self-stretch d-flex" style="background-image: url(images/category.jpg);">
+								<div class="category-wrap-2 ftco-animate img align-self-stretch d-flex" style="background-image: url(images/appliances.jpeg);">
 									<div class="text text-center">
-										<h2>Vegetables</h2>
+										<h2>Health Monitors & Test</h2>
 										<p>Protect the health of every home</p>
 										<p><a href="#" class="btn btn-primary">Shop now</a></p>
 									</div>
 								</div>
 							</div>
 							<div class="col-md-6">
-								<div class="category-wrap ftco-animate img mb-4 d-flex align-items-end" style="background-image: url(images/category-1.jpg);">
+								<div class="category-wrap ftco-animate img mb-4 d-flex align-items-end" style="background-image: url(images/medicine.jpg);">
 									<div class="text px-3 py-1">
-										<h2 class="mb-0"><a href="#">Fruits</a></h2>
+										<h2 class="mb-0"><a href="#">Medicines</a></h2>
 									</div>
 								</div>
-								<div class="category-wrap ftco-animate img d-flex align-items-end" style="background-image: url(images/category-2.jpg);">
+								<div class="category-wrap ftco-animate img d-flex align-items-end" style="background-image: url(images/ointment.jpeg);">
 									<div class="text px-3 py-1">
-										<h2 class="mb-0"><a href="#">Vegetables</a></h2>
+										<h2 class="mb-0"><a href="#">First Aid Supplies</a></h2>
 									</div>
 								</div>
 							</div>
@@ -126,14 +126,14 @@
 					</div>
 
 					<div class="col-md-4">
-						<div class="category-wrap ftco-animate img mb-4 d-flex align-items-end" style="background-image: url(images/category-3.jpg);">
+						<div class="category-wrap ftco-animate img mb-4 d-flex align-items-end" style="background-image: url(images/vitamin-2.jpg);">
 							<div class="text px-3 py-1">
-								<h2 class="mb-0"><a href="#">Juices</a></h2>
+								<h2 class="mb-0"><a href="#">Vitamins & Supplements</a></h2>
 							</div>		
 						</div>
-						<div class="category-wrap ftco-animate img d-flex align-items-end" style="background-image: url(images/category-4.jpg);">
+						<div class="category-wrap ftco-animate img d-flex align-items-end" style="background-image: url(images/covid.jpg);">
 							<div class="text px-3 py-1">
-								<h2 class="mb-0"><a href="#">Dried</a></h2>
+								<h2 class="mb-0"><a href="#">Covid-19 </a></h2>
 							</div>
 						</div>
 					</div>
@@ -385,7 +385,7 @@
     	</div>
     </section>
 		
-		<section class="ftco-section img" style="background-image: url(images/bg_3.jpg);">
+		<!-- <section class="ftco-section img" style="background-image: url(images/bg_3.jpg);">
     	<div class="container">
 				<div class="row justify-content-end">
           <div class="col-md-6 heading-section ftco-animate deal-of-the-day ftco-animate">
@@ -403,9 +403,9 @@
           </div>
         </div>   		
     	</div>
-    </section>
+    </section> -->
 
-    <section class="ftco-section testimony-section">
+    <!-- <section class="ftco-section testimony-section">
       <div class="container">
         <div class="row justify-content-center mb-5 pb-3">
           <div class="col-md-7 heading-section ftco-animate text-center">
@@ -491,11 +491,11 @@
           </div>
         </div>
       </div>
-    </section>
+    </section> -->
 
     <hr>
 
-		<section class="ftco-section ftco-partner">
+		<!-- <section class="ftco-section ftco-partner">
     	<div class="container">
     		<div class="row">
     			<div class="col-sm ftco-animate">
@@ -515,7 +515,7 @@
     			</div>
     		</div>
     	</div>
-    </section>
+    </section> -->
 
 		<section class="ftco-section ftco-no-pt ftco-no-pb py-5 bg-light">
       <div class="container py-4">

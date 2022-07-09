@@ -12,11 +12,11 @@
  // }
     include('nav-bar/top_nav.html'); ?>
    
-    <div class="hero-wrap hero-bread" style="background-image: url('images/bg_1.jpg');">
+    <div class="hero-wrap hero-bread" style="background-image: url('images/banner-3.jpg');">
       <div class="container">
         <div class="row no-gutters slider-text align-items-center justify-content-center">
           <div class="col-md-9 ftco-animate text-center">
-          	<p class="breadcrumbs"><span class="mr-2"><a href="index.html">Home</a></span> <span>Products</span></p>
+          	<p class="breadcrumbs"><span class="mr-2"><a href="index.php">Home</a></span> <span>Products</span></p>
             <h1 class="mb-0 bread">Products</h1>
           </div>
         </div>
@@ -29,10 +29,11 @@
     			<div class="col-md-10 mb-5 text-center">
     				<ul class="product-category">
     					<li><a href="#" class="active">All</a></li>
-    					<li><a href="#">Vegetables</a></li>
-    					<li><a href="#">Fruits</a></li>
-    					<li><a href="#">Juice</a></li>
-    					<li><a href="#">Dried</a></li>
+    					<li><a href="#">Health Monitors & Test</a></li>
+    					<li><a href="#">Medicines</a></li>
+    					<li><a href="#">First Aid Supplies</a></li>
+    					<li><a href="#">Vitamins & Supplements</a></li>
+						<li><a href="#">Covid-19</a></li>
     				</ul>
     			</div>
     		</div>

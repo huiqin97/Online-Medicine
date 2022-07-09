@@ -100,39 +100,85 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Sign Up</title>
+    <title>Register</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <style>
-        body{ font: 14px sans-serif; }
-        .wrapper{ width: 360px; padding: 20px; }
-    </style>
+    <link rel="stylesheet" href="css/register.css">
+
 </head>
 <body>
-    <div class="wrapper">
-        <h2>Sign Up</h2>
-        <p>Please fill this form to create an account.</p>
-        <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
-            <div class="form-group">
-                <label>Username</label>
-                <input type="text" name="username" class="form-control <?php echo (!empty($username_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $username; ?>">
-                <span class="invalid-feedback"><?php echo $username_err; ?></span>
-            </div>    
-            <div class="form-group">
-                <label>Password</label>
-                <input type="password" name="password" class="form-control <?php echo (!empty($password_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $password; ?>">
-                <span class="invalid-feedback"><?php echo $password_err; ?></span>
+    <section class="h-100 bg-dark">
+      <div class="container py-5 h-100">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+          <div class="col">
+            <div class="card card-registration my-4">
+              <div class="row g-0">
+                <div class="col-xl-6 d-none d-xl-block">
+                  <img src="images/register.jpg"
+                    alt="Sample photo" class="img-fluid"
+                    style="margin-top: 11rem;margin-left: 2rem;" />
+                </div>
+                <div class="col-xl-6">
+                  <div class="card-body p-md-5 text-black" >
+                    <h3 class="mb-5 text-uppercase">Register Now</h3>
+
+                    <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
+                    <!-- <div class="row">
+                      <div class="col-md-6 mb-4">
+                        <div class="form-outline">
+                          <input type="text" id="form3Example1m" class="form-control form-control-lg" />
+                          <label class="form-label" for="form3Example1m">First name</label>
+                        </div>
+                      </div>
+                      <div class="col-md-6 mb-4">
+                        <div class="form-outline">
+                          <input type="text" id="form3Example1n" class="form-control form-control-lg" />
+                          <label class="form-label" for="form3Example1n">Last name</label>
+                        </div>
+                      </div>
+                    </div> -->
+
+                    <div class="form-outline mb-4">
+                      <input type="text" id="form3Example8" class="form-control form-control-lg" />
+                      <label class="form-label" for="form3Example8">Name</label>
+                    </div>
+
+                    <div class="form-outline mb-4">
+                      <input type="text" id="form3Example8" class="form-control form-control-lg" />
+                      <label class="form-label" for="form3Example8">Email</label>
+                    </div>
+
+                    <div class="form-outline mb-4">
+                      <input type="text" id="form3Example8" class="form-control form-control-lg" />
+                      <label class="form-label" for="form3Example8">Phone</label>
+                    </div>
+
+                    <div class="form-outline mb-4">
+                      <input type="text" id="form3Example8" class="form-control form-control-lg" />
+                      <label class="form-label" for="form3Example8">Billing Address</label>
+                    </div>
+
+                    <div class="form-outline mb-4">
+                      <input type="password" id="form3Example8" class="form-control form-control-lg"/>
+                      <label class="form-label" for="form3Example8">Password</label>
+                    </div>
+
+                    <div class="form-outline mb-4">
+                      <input type="password" id="form3Example8" class="form-control form-control-lg"/>
+                      <label class="form-label" for="form3Example8">Confirm Password</label>
+                    </div>
+
+                    <div class="d-flex justify-content-end pt-3">
+                     <button type="button" class="btn btn-light btn-lg ms-2" onclick="window.location.href='login.php'">Cancel</button>
+                      <button type="button" class="btn btn-warning btn-lg ms-2">Register</button>
+                    </div>
+                </form>
+              </div>
             </div>
-            <div class="form-group">
-                <label>Confirm Password</label>
-                <input type="password" name="confirm_password" class="form-control <?php echo (!empty($confirm_password_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $confirm_password; ?>">
-                <span class="invalid-feedback"><?php echo $confirm_password_err; ?></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" class="btn btn-primary" value="Submit">
-                <input type="reset" class="btn btn-secondary ml-2" value="Reset">
-            </div>
-            <p>Already have an account? <a href="login.php">Login here</a>.</p>
-        </form>
-    </div>    
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 </body>
 </html>
