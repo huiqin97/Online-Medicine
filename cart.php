@@ -41,14 +41,14 @@
 						      <tr class="text-center">
 						        <td class="product-remove"><a href="#"><span class="ion-ios-close"></span></a></td>
 						        
-						        <td class="image-prod"><div class="img" style="background-image:url(images/product-3.jpg);"></div></td>
+						        <td class="image-prod"><div class="img" style="background-image:url(images/med-photos/PILLS/timoferol-90-capsules.jpg);"></div></td>
 						        
 						        <td class="product-name">
-						        	<h3>Bell Pepper</h3>
-						        	<p>Far far away, behind the word mountains, far from the countries</p>
+						        	<h3>Timoferol</h3>
+						        	<p>90 capsules</p>
 						        </td>
 						        
-						        <td class="price">$4.90</td>
+						        <td class="price">RM 4.90</td>
 						        
 						        <td class="quantity">
 						        	<div class="input-group mb-3">
@@ -56,20 +56,20 @@
 					          	</div>
 					          </td>
 						        
-						        <td class="total">$4.90</td>
+						        <td class="total">RM 4.90</td>
 						      </tr><!-- END TR-->
 
 						      <tr class="text-center">
 						        <td class="product-remove"><a href="#"><span class="ion-ios-close"></span></a></td>
 						        
-						        <td class="image-prod"><div class="img" style="background-image:url(images/product-4.jpg);"></div></td>
+						        <td class="image-prod"><div class="img" style="background-image:url(images/med-photos/PILLS/polaramine-2mg-20-scored-tablets.jpg);"></div></td>
 						        
 						        <td class="product-name">
-						        	<h3>Bell Pepper</h3>
-						        	<p>Far far away, behind the word mountains, far from the countries</p>
+						        	<h3>Polaramine tablets</h3>
+						        	<p>2mg </p>
 						        </td>
 						        
-						        <td class="price">$15.70</td>
+						        <td class="price">RM 15.70</td>
 						        
 						        <td class="quantity">
 						        	<div class="input-group mb-3">
@@ -77,7 +77,7 @@
 					          	</div>
 					          </td>
 						        
-						        <td class="total">$15.70</td>
+						        <td class="total">RM 15.70</td>
 						      </tr><!-- END TR-->
 						    </tbody>
 						  </table>
@@ -88,20 +88,20 @@
 								<h3>Cart Totals</h3>
 								<p class="d-flex">
 									<span>Subtotal</span>
-									<span>$20.60</span>
+									<span>RM 20.60</span>
 								</p>
 								<p class="d-flex">
 									<span>Delivery</span>
-									<span>$0.00</span>
+									<span>RM 0.00</span>
 								</p>
 								<p class="d-flex">
 									<span>Discount</span>
-									<span>$3.00</span>
+									<span>RM 3.00</span>
 								</p>
 								<hr>
 								<p class="d-flex total-price">
 									<span>Total</span>
-									<span>$17.60</span>
+									<span>RM 17.60</span>
 								</p>
 							</div>
 							<p><a href="checkout.php" class="btn btn-primary py-3 px-4">Proceed to Checkout</a></p>
