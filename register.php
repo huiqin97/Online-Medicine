@@ -3,96 +3,68 @@
 require_once "db_config.php";
  
 // Define variables and initialize with empty values
-$username = $password = $confirm_password = "";
-$username_err = $password_err = $confirm_password_err = "";
- 
-// Processing form data when form is submitted
-if($_SERVER["REQUEST_METHOD"] == "POST"){
- 
+$username = $password = $confirm_password = $address = $phone = $email = "";
+$err_message = "";
+
+// Processing form data when form is submitted $_SERVER["REQUEST_METHOD"] == "POST"
+if(isset($_POST['register'])){
+
     // Validate username
-    if(empty(trim($_POST["username"]))){
-        $username_err = "Please enter a username.";
-    } elseif(!preg_match('/^[a-zA-Z0-9_]+$/', trim($_POST["username"]))){
-        $username_err = "Username can only contain letters, numbers, and underscores.";
+    if(empty(trim($_POST["cust_name"]))){
+        $err_message = "Please enter a username.";
+    } elseif(!preg_match('/^[a-zA-Z0-9_]+$/', trim($_POST["cust_name"]))&& empty($err_message)){
+        $err_message = "Username can only contain letters, numbers, and underscores.";
     } else{
-        // Prepare a select statement
-        $sql = "SELECT cust_id FROM customer WHERE cust_name = ?";
-        
-        if($stmt = $mysqli->prepare($sql)){
-            // Bind variables to the prepared statement as parameters
-            $stmt->bind_param("s", $param_username);
-            
-            // Set parameters
-            $param_username = trim($_POST["username"]);
-            
+      $username = trim($_POST["cust_name"]);
+    }
 
-            // Attempt to execute the prepared statement
-            if($stmt->execute()){
-                // store result
-                $stmt->store_result();
-                
-                if($stmt->num_rows == 1){
-                    $username_err = "This username is already taken.";
-                } else{
-                    $username = trim($_POST["username"]);
-                }
-            } else{
-                echo "Oops! Something went wrong. Please try again later.";
-            }
+    if(empty(trim($_POST["cust_email"])) && empty($err_message)){
+      $err_message = "Please enter your email."; 
+    }else{
+       // Prepare a select statement
+       $sql = "SELECT cust_id FROM customer WHERE cust_email = ?";
+       $param_email = trim($_POST["cust_email"]);
+       $ret = getUserInfo($sql,$param_email);
 
-            // Close statement
-            $stmt->close();
-        }
+       if($ret != true){
+         $err_message = $ret;
+       }else{
+         $email = trim($_POST["cust_email"]);
+       }
     }
     
     // Validate password
-    if(empty(trim($_POST["password"]))){
-        $password_err = "Please enter a password.";     
-    } elseif(strlen(trim($_POST["password"])) < 6){
-        $password_err = "Password must have atleast 6 characters.";
+    if(empty(trim($_POST["password"])) && empty($err_message)){
+        $err_message = "Please enter a password.";     
+    } elseif(strlen(trim($_POST["password"])) < 6 && empty($err_message)){
+        $err_message = "Password must have at least 6 characters.";
     } else{
         $password = trim($_POST["password"]);
     }
     
     // Validate confirm password
-    if(empty(trim($_POST["confirm_password"]))){
-        $confirm_password_err = "Please confirm password.";     
+    if(empty(trim($_POST["retry_password"])) && empty($err_message)){
+        $err_message = "Please confirm the password.";     
     } else{
-        $confirm_password = trim($_POST["confirm_password"]);
-        if(empty($password_err) && ($password != $confirm_password)){
-            $confirm_password_err = "Password did not match.";
+        $confirm_password = trim($_POST["retry_password"]);
+        if(empty($password_err) && ($password != $confirm_password) && empty($err_message)){
+            $err_message = "Password did not match. Please try again";
         }
     }
+
+  
+    $phone = trim($_POST["cust_phone"]);
+    $address = trim($_POST["cust_address"]);
     
     // Check input errors before inserting in database
-    if(empty($username_err) && empty($password_err) && empty($confirm_password_err)){
-        
+    if(empty($err_message)){
+      $password_hash=password_hash($password, PASSWORD_DEFAULT);
         // Prepare an insert statement
-        $sql = "INSERT INTO customer (cust_name, password) VALUES (?, ?)";
-         
-        if($stmt = $mysqli->prepare($sql)){
-            // Bind variables to the prepared statement as parameters
-            $stmt->bind_param("ss", $param_username, $param_password);
-            
-            // Set parameters
-            $param_username = $username;
-            $param_password = password_hash($password, PASSWORD_DEFAULT); // Creates a password hash
-            
-            // Attempt to execute the prepared statement
-            if($stmt->execute()){
-                // Redirect to login page
-                header("location: login.php");
-            } else{
-                echo "Oops! Something went wrong. Please try again later.";
-            }
-
-            // Close statement
-            $stmt->close();
-        }
+        $insert_query = "INSERT INTO customer (CUST_NAME, CUST_EMAIL,CUST_PHONE, BILL_ADDRESS,PASSWORD) 
+                  VALUES ('$username','$email','$phone','$address','$password_hash')";
+        insertUser($insert_query);
+        header("location: http://localhost/Online-Medicine/login.php");
     }
-    
-    // Close connection
-    $mysqli->close();
 }
 ?>
  
@@ -121,57 +93,51 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                   <div class="card-body p-md-5 text-black" >
                     <h3 class="mb-5 text-uppercase">Register Now</h3>
 
-                    <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
-                    <!-- <div class="row">
-                      <div class="col-md-6 mb-4">
-                        <div class="form-outline">
-                          <input type="text" id="form3Example1m" class="form-control form-control-lg" />
-                          <label class="form-label" for="form3Example1m">First name</label>
-                        </div>
-                      </div>
-                      <div class="col-md-6 mb-4">
-                        <div class="form-outline">
-                          <input type="text" id="form3Example1n" class="form-control form-control-lg" />
-                          <label class="form-label" for="form3Example1n">Last name</label>
-                        </div>
-                      </div>
-                    </div> -->
+                    <form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"])?>">
 
                     <div class="form-outline mb-4">
-                      <input type="text" id="form3Example8" class="form-control form-control-lg" />
+                      <input type="text" name="cust_name" class="form-control form-control-lg"/>
                       <label class="form-label" for="form3Example8">Name</label>
                     </div>
 
                     <div class="form-outline mb-4">
-                      <input type="text" id="form3Example8" class="form-control form-control-lg" />
+                      <input type="text" name="cust_email" class="form-control form-control-lg" />
                       <label class="form-label" for="form3Example8">Email</label>
                     </div>
 
                     <div class="form-outline mb-4">
-                      <input type="text" id="form3Example8" class="form-control form-control-lg" />
+                      <input type="text" name="cust_phone" class="form-control form-control-lg" />
                       <label class="form-label" for="form3Example8">Phone</label>
                     </div>
 
                     <div class="form-outline mb-4">
-                      <input type="text" id="form3Example8" class="form-control form-control-lg" />
+                      <input type="text" name="cust_address" class="form-control form-control-lg" />
                       <label class="form-label" for="form3Example8">Billing Address</label>
                     </div>
 
                     <div class="form-outline mb-4">
-                      <input type="password" id="form3Example8" class="form-control form-control-lg"/>
+                      <span class="invalid-feedback"><?php echo $password_err; ?></span>
+                      <input type="password" name="password" class="form-control form-control-lg"/>
                       <label class="form-label" for="form3Example8">Password</label>
                     </div>
 
                     <div class="form-outline mb-4">
-                      <input type="password" id="form3Example8" class="form-control form-control-lg"/>
+                      <input type="password" name="retry_password" class="form-control form-control-lg"/>
                       <label class="form-label" for="form3Example8">Confirm Password</label>
                     </div>
 
                     <div class="d-flex justify-content-end pt-3">
                      <button type="button" class="btn btn-light btn-lg ms-2" onclick="window.location.href='login.php'">Cancel</button>
-                      <button type="button" class="btn btn-warning btn-lg ms-2">Register</button>
+    
+                     <input type="submit" class="btn btn-primary btn-lg ms-2" name="register" value="Register">
                     </div>
                 </form>
+                <?php if(!empty($err_message)): ?>
+                 
+                  <div class='alert alert-danger' role='alert'>
+                      <?php echo $err_message ?> 
+                  </div>
+                  <?php endif; ?>
               </div>
             </div>
           </div>

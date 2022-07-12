@@ -14,15 +14,16 @@ require_once "db_config.php";
 // Define variables and initialize with empty values
 $username = $password = "";
 $username_err = $password_err = $login_err = "";
+$conn = connectDB();
  
 // Processing form data when form is submitted
-if($_SERVER["REQUEST_METHOD"] == "POST"){
+if(isset($_POST['login'])){
  
     // Check if username is empty
     if(empty(trim($_POST["username"]))){
-        $username_err = "Please enter username.";
+        $username_err = "Please enter email.";
     } else{
-        $username = trim($_POST["username"]);
+        $email = trim($_POST["username"]);
     }
     
     // Check if password is empty
@@ -38,14 +39,14 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         //  Redirect user to welcome page
         header("location: http://localhost/Online-Medicine/index.php");
         // Prepare a select statement
-        $sql = "SELECT cust_id, cust_name, password FROM customer WHERE username = ?";
+        $sql = "SELECT cust_id, cust_name, password FROM customer WHERE cust_email = ?";
         
         if($stmt = $conn->prepare($sql)){
             // Bind variables to the prepared statement as parameters
-            $stmt->bind_param("s", $param_username);
+            $stmt->bind_param("s", $param_email);
             
             // Set parameters
-            $param_username = $username;
+            $param_email = $email;
             
             // Attempt to execute the prepared statement
             if($stmt->execute()){
@@ -54,19 +55,19 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 // Check if username exists, if yes then verify password
                 if($stmt->num_rows == 1){                    
                     // Bind result variables
-                    $stmt->bind_result($id, $username, $hashed_password);
+                    $stmt->bind_result($id, $email, $hashed_password);
                     if($stmt->fetch()){
                         if(password_verify($password, $hashed_password)){
                             // Password is correct, so start a new session
                             session_start();
-                            
+                            echo "here";
                             // Store data in session variables
                             $_SESSION["loggedin"] = true;
                             $_SESSION["id"] = $id;
-                            $_SESSION["username"] = $username;                            
+                            $_SESSION["email"] = $email;                            
                             
                             // Redirect user to welcome page
-                            header("location: index.php");
+                            header("location: http://localhost/Online-Medicine/index.php");
                         } else{
                             // Password is not valid, display a generic error message
                             $login_err = "Invalid username or password.";
@@ -102,33 +103,12 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     </style>
 </head>
 <body>
-    <!-- <div class="wrapper">
-        <h2>Login</h2>
-        <p>Please fill in your credentials to login.</p>
 
         <?php 
         if(!empty($login_err)){
             echo '<div class="alert alert-danger">' . $login_err . '</div>';
         }        
         ?>
-
-        <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
-            <div class="form-group">
-                <label>Username</label>
-                <input type="text" name="username" class="form-control <?php echo (!empty($username_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $username; ?>">
-                <span class="invalid-feedback"><?php echo $username_err; ?></span>
-            </div>    
-            <div class="form-group">
-                <label>Password</label>
-                <input type="password" name="password" class="form-control <?php echo (!empty($password_err)) ? 'is-invalid' : ''; ?>">
-                <span class="invalid-feedback"><?php echo $password_err; ?></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" class="btn btn-primary" value="Login">
-            </div>
-            <p>Don't have an account? <a href="register.php">Sign up now</a>.</p>
-        </form>
-    </div> -->
 
     <section class="vh-100" style="background-color: #eee;">
   <div class="container h-100">
@@ -146,6 +126,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                   <div class="d-flex flex-row align-items-center mb-4">
                     <i class="fas fa-envelope fa-lg me-3 fa-fw"></i>
                     <div class="form-outline flex-fill mb-0">
+                      <span class="invalid-feedback"><?php echo $username_err; ?></span>
                       <input type="email" name="username" id="form3Example3c" class="form-control" />
                       <label class="form-label" for="form3Example3c">Your Email</label>
                     </div>
@@ -154,13 +135,14 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                   <div class="d-flex flex-row align-items-center mb-4">
                     <i class="fas fa-lock fa-lg me-3 fa-fw"></i>
                     <div class="form-outline flex-fill mb-0">
-                      <input type="password" name="password" id="form3Example4c" class="form-control" />
+                      <span class="invalid-feedback"><?php echo $password_err; ?></span>
+                      <input type="password" name="password" id="form3Example4c" class="form-control"/>
                       <label class="form-label" for="form3Example4c">Password</label>
                     </div>
                   </div>
 
                   <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
-                    <button type="button" class="btn btn-primary btn-lg" type="submit">Login</button>
+                    <input type="submit" class="btn btn-primary btn-lg" value="Login" name="login">
                   </div>
 
                   <p>Don't have an account? <a href="register.php">Sign up now</a>.</p>
