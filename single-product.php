@@ -11,6 +11,7 @@
 		header("location: login.php");
 		exit;
 	}
+
 	$product_obj = new manageProduct();
 	$productID = "";
 	$productID = $product_obj->getProductID();
@@ -27,7 +28,17 @@
 		$order_obj->addToCart($cust_id,$prod_id);
 	}
 
-    include('nav-bar/top_nav.html'); ?>
+	if(isset($_POST['addToCart'])){
+		$quantity = strval($_POST['quantity']);
+		$cust_id = strval($_SESSION['id']);
+		// if($quantity> 1){
+		// 	$sql = "UPDATE CART SET PROD_AMT = $quantity WHERE PRODUCT_ID = $productID AND CUST_ID = $cust_id";
+		// }
+		$order_obj->addItemWithAmt($quantity,$cust_id,$productID);
+		
+	}
+
+    include('nav-bar/top_nav.php'); ?>
 
 <div class="hero-wrap hero-bread" style="background-image: url('images/banner-header-pill.jpg');">
       <div class="container">
@@ -74,24 +85,21 @@
 							<div class="w-100"></div>
 							<div class="input-group col-md-6 d-flex mb-3">
 	             	<span class="input-group-btn mr-2">
-	                	<button type="button" class="quantity-left-minus btn"  data-type="minus" data-field="">
-	                   <i class="ion-ios-remove"></i>
-	                	</button>
 	            		</span>
+					<form method="post">
 	             	<input type="text" id="quantity" name="quantity" class="form-control input-number" value="1" min="1" max="100">
 	             	<span class="input-group-btn ml-2">
-	                	<button type="button" class="quantity-right-plus btn" data-type="plus" data-field="">
-	                     <i class="ion-ios-add"></i>
-	                 </button>
 	             	</span>
 	          	</div>
 	          	<div class="w-100"></div>
 
           	</div>
-          	<p><a href="cart.php" class="btn btn-black py-3 px-5">Add to Cart</a></p>
+          	<!-- <p><a href="" class="btn btn-black py-3 px-5">Add to Cart</a></p> -->
+			  <input type="submit" value ="Add to Cart" name="addToCart" class="btn btn-black py-3 px-5">
     			</div>
     		</div>
     	</div>
+		</form>
     </section>
 
     <section class="ftco-section">

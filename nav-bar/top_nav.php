@@ -1,3 +1,12 @@
+<?php
+	require_once "backend/manageOrder.php";
+		
+	$cust_id = $_SESSION['id'];
+	$order_obj = new manageOrder();
+	$total = $order_obj->getNumOfCart($cust_id);
+
+?>
+
 <head>
 	<title>Online Medicine Delivery System</title>
 		<meta charset="utf-8">
@@ -69,7 +78,7 @@
             </li>
 	          <li class="nav-item"><a href="about.php" class="nav-link">About</a></li>
 	          <li class="nav-item"><a href="contact.php" class="nav-link">Contact</a></li>
-	          <li class="nav-item cta cta-colored"><a href="cart.php" class="nav-link"><span class="icon-shopping_cart"></span>[0]</a></li>
+	          <li class="nav-item cta cta-colored"><a href="cart.php" class="nav-link"><span class="icon-shopping_cart">[<?php echo $total?>]</a></li>
 			  <li class="nav-item"><a href="logout.php" class="nav-link">Log Out</a></li>
 
 	        </ul>

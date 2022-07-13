@@ -159,4 +159,24 @@ define('DB_NAME', 'onlinemedicine');
 
         return $productDetails;
     }
+
+    function getCartTotal($sql){
+        $conn = connectDB();
+        $stmt = $conn->prepare($sql); 
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $total = $result->fetch_object()->itemCount;
+
+        $conn->close();
+        return $total;
+    }
+
+    function updateCartStatements($sql){
+        $conn = connectDB();
+        if($stmt = $conn->prepare($sql)){
+            $stmt->execute();
+            $stmt->close();
+        }
+        $conn->close();
+    }
    

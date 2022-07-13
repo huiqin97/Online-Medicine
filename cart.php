@@ -2,14 +2,46 @@
 <html>
 
     <?php  
-	// session_start();
+	require_once "backend/manageProduct.php";
+	require_once "backend/manageOrder.php";
+	session_start();
  
- // // Check if the user is logged in, if not then redirect him to login page
- // if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
- //     header("location: login.php");
- //     exit;
- // }
-	include('nav-bar/top_nav.html'); ?>
+	// Check if the user is logged in, if not then redirect him to login page
+	if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
+		header("location: login.php");
+		exit;
+	}
+
+	$order_obj = new manageOrder();
+	$resp = $order_obj->getAllOrderDetails();
+	$preprocess_resp = preprocessResp($resp);
+
+	if($resp){
+		$totalSum = [];
+		foreach($resp as $result){
+			$sum = calculateTotal($result['PRODUCT_PRICE'],$result['PROD_AMT']);
+			
+			array_push($totalSum,$sum);
+        }
+		$cart_total =array_sum($totalSum);
+	}
+	function preprocessResp($resp){
+		$i =0;
+		foreach($resp as $result){
+			$sum = calculateTotal($result['PRODUCT_PRICE'],$result['PROD_AMT']);
+			$resp[$i]['total'] =$sum;
+			$i++;
+        }
+		return $resp;
+	}
+	function calculateTotal($unitPrice,$unit){
+		$totalPrice = floatval($unitPrice)*floatval($unit);
+		return $totalPrice;
+	}
+
+	include('nav-bar/top_nav.php'); ?>
+
+
 	<div class="hero-wrap hero-bread" style="background-image: url('images/banner-5.jpg');">
       <div class="container">
         <div class="row no-gutters slider-text align-items-center justify-content-center">
@@ -30,7 +62,6 @@
 						    <thead class="thead-primary">
 						      <tr class="text-center">
 						        <th>&nbsp;</th>
-						        <th>&nbsp;</th>
 						        <th>Product name</th>
 						        <th>Price</th>
 						        <th>Quantity</th>
@@ -38,47 +69,30 @@
 						      </tr>
 						    </thead>
 						    <tbody>
-						      <tr class="text-center">
-						        <td class="product-remove"><a href="#"><span class="ion-ios-close"></span></a></td>
-						        
-						        <td class="image-prod"><div class="img" style="background-image:url(images/med-photos/PILLS/timoferol-90-capsules.jpg);"></div></td>
-						        
-						        <td class="product-name">
-						        	<h3>Timoferol</h3>
-						        	<p>90 capsules</p>
-						        </td>
-						        
-						        <td class="price">RM 4.90</td>
-						        
-						        <td class="quantity">
-						        	<div class="input-group mb-3">
-					             	<input type="text" name="quantity" class="quantity form-control input-number" value="1" min="1" max="100">
-					          	</div>
-					          </td>
-						        
-						        <td class="total">RM 4.90</td>
-						      </tr><!-- END TR-->
+							 <?php foreach ($preprocess_resp as $product): ?>
+								<tr class="text-center">
+								<form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
+									<td class="product-remove">
+									<input type="hidden" name="product_id" value="<?=$product['PRODUCT_ID']?>">
+										<input type="submit" value ="Remove" name="remove" class="btn btn-primary py-2 px-2">
+									</td>
 
-						      <tr class="text-center">
-						        <td class="product-remove"><a href="#"><span class="ion-ios-close"></span></a></td>
-						        
-						        <td class="image-prod"><div class="img" style="background-image:url(images/med-photos/PILLS/polaramine-2mg-20-scored-tablets.jpg);"></div></td>
+								</form>
 						        
 						        <td class="product-name">
-						        	<h3>Polaramine tablets</h3>
-						        	<p>2mg </p>
+						        	<h3><?=$product['PRODUCT_NAME']?></h3>
 						        </td>
 						        
-						        <td class="price">RM 15.70</td>
+						        <td class="price">RM <?=$product['PRODUCT_PRICE']?></td>
 						        
 						        <td class="quantity">
-						        	<div class="input-group mb-3">
-					             	<input type="text" name="quantity" class="quantity form-control input-number" value="1" min="1" max="100">
+								<?=$product['PROD_AMT']?>
 					          	</div>
 					          </td>
+							  
+						        <td class="total"> RM <?=$product['total'] ?></td>
 						        
-						        <td class="total">RM 15.70</td>
-						      </tr><!-- END TR-->
+							  <?php endforeach; ?> 
 						    </tbody>
 						  </table>
 					  </div>
@@ -88,20 +102,31 @@
 								<h3>Cart Totals</h3>
 								<p class="d-flex">
 									<span>Subtotal</span>
-									<span>RM 20.60</span>
+									<span>RM <?=$cart_total ?></span>
 								</p>
+
 								<p class="d-flex">
 									<span>Delivery</span>
-									<span>RM 0.00</span>
+									<span>RM <?php 
+									if($cart_total<100){
+										echo '5';
+									}else{
+										echo '0';
+									}
+									?></span>
 								</p>
-								<p class="d-flex">
-									<span>Discount</span>
-									<span>RM 3.00</span>
-								</p>
+
 								<hr>
 								<p class="d-flex total-price">
 									<span>Total</span>
-									<span>RM 17.60</span>
+									<span>RM <?php 
+									if($cart_total<100){
+										$sum = $cart_total +5;
+										echo $sum;
+									}else{
+										echo $cart_total;
+									}
+									?></span>
 								</p>
 							</div>
 							<p><a href="checkout.php" class="btn btn-primary py-3 px-4">Proceed to Checkout</a></p>

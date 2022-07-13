@@ -22,7 +22,7 @@
 		$order_obj->addToCart($cust_id,$prod_id);
 	}
 
-    include('nav-bar/top_nav.html'); ?>
+    include('nav-bar/top_nav.php'); ?>
 
 <!-- UI here -->
     <section id="home-section" class="hero">

@@ -2,14 +2,14 @@
 <html>
 
     <?php 
-    // session_start();
+    session_start();
  
- // // Check if the user is logged in, if not then redirect him to login page
- // if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
- //     header("location: login.php");
- //     exit;
- // }
-    include('nav-bar/top_nav.html'); ?>
+ // Check if the user is logged in, if not then redirect him to login page
+ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
+     header("location: login.php");
+     exit;
+ }
+    include('nav-bar/top_nav.php'); ?>
   
     <div class="hero-wrap hero-bread" style="background-image: url('images/banner-contact.jpg');">
       <div class="container">
@@ -68,10 +68,6 @@
             </form>
           
           </div>
-<!-- 
-          <div class="col-md-6 d-flex">
-          	<div id="map" class="bg-white"></div>
-          </div> -->
         </div>
       </div>
     </section>

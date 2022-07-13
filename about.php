@@ -1,7 +1,16 @@
 <!DOCTYPE html>
 <html>
 
-    <?php include('nav-bar/top_nav.html'); ?>
+    <?php 
+    session_start();
+ 
+    // Check if the user is logged in, if not then redirect him to login page
+    if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
+      header("location: login.php");
+      exit;
+    }
+    
+    include('nav-bar/top_nav.php'); ?>
     <div class="hero-wrap hero-bread" style="background-image: url('images/banner-7.jpg');">
       <div class="container">
         <div class="row no-gutters slider-text align-items-center justify-content-center">
@@ -25,8 +34,8 @@
 	            </div>
 	          </div>
 	          <div class="pb-md-5">
-	          	<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean.</p>
-							<p>But nothing the copy said could convince her and so it didn’t take long until a few insidious Copy Writers ambushed her, made her drunk with Longe and Parole and dragged her into their agency, where they abused her for their.</p>
+	          	<p>Providing 12 hours a day, 7 days a week  full time pharmacist service.
+Providing easily accessible pharmacist counseling service, free blood pressure checks and other health checks at a minimum fee. Designing the store with a modern, open concept to maximise interaction with customers and merchandise</p>
 							<p><a href="shop.php" class="btn btn-primary">Shop now</a></p>
 						</div>
 					</div>

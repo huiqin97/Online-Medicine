@@ -9,7 +9,7 @@
 		exit;
 	}
 
-    include('nav-bar/top_nav.html');
+    include('nav-bar/top_nav.php');
     ?>
     <section class="ftco-section">
 

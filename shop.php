@@ -27,7 +27,7 @@
 	}
 
 
-    include('nav-bar/top_nav.html'); ?>
+    include('nav-bar/top_nav.php'); ?>
    <script src="js/product.js"></script>
  
    <div class="hero-wrap hero-bread" style="background-image: url('images/banner-3.jpg');">
