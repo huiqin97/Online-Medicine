@@ -37,9 +37,9 @@ if(isset($_POST['login'])){
     if(empty($username_err) && empty($password_err)){
 
         //  Redirect user to welcome page
-        header("location: http://localhost/Online-Medicine/index.php");
+        // header("location: http://localhost/Online-Medicine/index.php");
         // Prepare a select statement
-        $sql = "SELECT cust_id, cust_name, password FROM customer WHERE cust_email = ?";
+        $sql = "SELECT cust_id, cust_name, password,role FROM customer WHERE cust_email = ?";
         
         if($stmt = $conn->prepare($sql)){
             // Bind variables to the prepared statement as parameters
@@ -54,20 +54,26 @@ if(isset($_POST['login'])){
                 $stmt->store_result();
                 // Check if username exists, if yes then verify password
                 if($stmt->num_rows == 1){                    
-                    // Bind result variables
-                    $stmt->bind_result($id, $email, $hashed_password);
-                    if($stmt->fetch()){
+                  // Bind result variables
+                  $stmt->bind_result($id, $email, $hashed_password,$role);
+                  
+                  if($stmt->fetch()){
+                   
                         if(password_verify($password, $hashed_password)){
                             // Password is correct, so start a new session
                             session_start();
-                            echo "here";
                             // Store data in session variables
                             $_SESSION["loggedin"] = true;
                             $_SESSION["id"] = $id;
                             $_SESSION["email"] = $email;                            
-                            
+
                             // Redirect user to welcome page
-                            header("location: http://localhost/Online-Medicine/index.php");
+                            if($role == 'ADMIN'){
+                            header("location: http://localhost/Online-Medicine/admin.php");
+                            }else{
+                              header("location: http://localhost/Online-Medicine/index.php");
+                            }
+                            
                         } else{
                             // Password is not valid, display a generic error message
                             $login_err = "Invalid username or password.";
