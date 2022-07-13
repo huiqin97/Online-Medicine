@@ -140,7 +140,7 @@
 					</div>
 
 					<div class="col-md-4">
-						<div class="category-wrap ftco-animate img mb-4 d-flex align-items-end" style="background-image: url(images/vitamin-2.jpg);">
+						<div class="category-wrap ftco-animate img mb-4 d-flex align-items-end" style="background-image: url(images/vitamins.jpg);">
 							<div class="text px-3 py-1">
 								<h2 class="mb-0"><a href="shop.php?type=vitamins">Vitamins & Supplements</a></h2>
 							</div>		

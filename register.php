@@ -116,7 +116,7 @@ if(isset($_POST['register'])){
                     </div>
 
                     <div class="form-outline mb-4">
-                      <span class="invalid-feedback"><?php echo $password_err; ?></span>
+                      <span class="invalid-feedback"></span>
                       <input type="password" name="password" class="form-control form-control-lg"/>
                       <label class="form-label" for="form3Example8">Password</label>
                     </div>

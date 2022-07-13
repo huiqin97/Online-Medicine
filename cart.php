@@ -15,6 +15,13 @@
 	$order_obj = new manageOrder();
 	$resp = $order_obj->getAllOrderDetails();
 	$preprocess_resp = preprocessResp($resp);
+	$cart_total = 0;
+
+	if(isset($_POST['remove'])){
+		$prod_id = strval($_POST['product_id']);
+		$order_obj->removeOrder($prod_id);
+		header("location: cart.php");
+	}
 
 	if($resp){
 		$totalSum = [];
@@ -40,7 +47,6 @@
 	}
 
 	include('nav-bar/top_nav.php'); ?>
-
 
 	<div class="hero-wrap hero-bread" style="background-image: url('images/banner-5.jpg');">
       <div class="container">
@@ -74,7 +80,7 @@
 								<form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
 									<td class="product-remove">
 									<input type="hidden" name="product_id" value="<?=$product['PRODUCT_ID']?>">
-										<input type="submit" value ="Remove" name="remove" class="btn btn-primary py-2 px-2">
+									<input type="submit" value ="Remove" name="remove" class="btn btn-primary py-2 px-2">
 									</td>
 
 								</form>
@@ -130,7 +136,6 @@
 								</p>
 							</div>
 							<p><a href="checkout.php" class="btn btn-primary py-3 px-4">Proceed to Checkout</a></p>
-
 				</div>
     		</div>
     		<div class="row justify-content-end">
@@ -159,42 +164,5 @@
     </section>
 
     <?php  include('nav-bar/footer.html'); ?>
-    
-  <script>
-		$(document).ready(function(){
-
-		var quantitiy=0;
-		   $('.quantity-right-plus').click(function(e){
-		        
-		        // Stop acting like a button
-		        e.preventDefault();
-		        // Get the field name
-		        var quantity = parseInt($('#quantity').val());
-		        
-		        // If is not undefined
-		            
-		            $('#quantity').val(quantity + 1);
-
-		          
-		            // Increment
-		        
-		    });
-
-		     $('.quantity-left-minus').click(function(e){
-		        // Stop acting like a button
-		        e.preventDefault();
-		        // Get the field name
-		        var quantity = parseInt($('#quantity').val());
-		        
-		        // If is not undefined
-		      
-		            // Increment
-		            if(quantity>0){
-		            $('#quantity').val(quantity - 1);
-		            }
-		    });
-		    
-		});
-	</script>
     
 </html>

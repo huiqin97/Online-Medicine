@@ -79,11 +79,23 @@ define('DB_NAME', 'onlinemedicine');
 
         $stmt = $conn->prepare($sql); 
         $stmt->bind_param("i", $id);
-        $stmt->execute();
+        if($stmt->execute()){
+            // store result
+            $stmt->store_result();
+        }
         $result = $stmt->get_result();
 
         $conn->close();
         return $result;
+    }
+
+    function getItemInfo($sql){
+        $conn = connectDB();
+
+        $result = $conn -> query($sql);
+        $productDetails = $result ->fetch_row();
+        $conn->close();
+        return $productDetails[0];
     }
 
     function getAllProductInfo($sql){
@@ -91,18 +103,16 @@ define('DB_NAME', 'onlinemedicine');
 
         $result = $conn -> query($sql);
         $prod = [];
+        $totalCount =0;
 
         if ($result->num_rows > 0) {
             $totalCount = mysqli_num_rows($result);
             $productDetails = $result->fetch_assoc();
         
-            while($productDetails = $result->fetch_assoc()) {
+            while($productDetails = $result->fetch_assoc()){
                 array_push($prod,$productDetails);
             }
-        } else {
-            echo "No results";
-        }
-
+        } 
         $conn->close();
         $resp = [
             "totalCount" => $totalCount,
@@ -120,6 +130,7 @@ define('DB_NAME', 'onlinemedicine');
         $result = $stmt->get_result(); // get the mysqli result
    
         $prod = [];
+        $totalCount = 0;
 
         if ($result->num_rows > 0) {
             $totalCount = $result->num_rows;
@@ -171,7 +182,7 @@ define('DB_NAME', 'onlinemedicine');
         return $total;
     }
 
-    function updateCartStatements($sql){
+    function execStatement($sql){
         $conn = connectDB();
         if($stmt = $conn->prepare($sql)){
             $stmt->execute();
