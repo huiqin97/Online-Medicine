@@ -17,7 +17,7 @@
 
     if(isset($_POST['process'])){
         $po_id = strval($_POST['po_id']);
-        // $admin_obj ->sendEmail($resp['PO_EMAIL']);
+        $admin_obj ->sendEmail($resp['PO_EMAIL']);
 		$admin_obj->updatePoStatus($po_id);
         header("location: admin.php");
     }
@@ -66,14 +66,13 @@
 						        	<h3><?=$product['PO_ID']?></h3>
 						        </td>
 						        
-						        <td class="price">RM <?=$product['PO_ORDER_DATE']?></td>
+						        <td class="date"><?=$product['PO_ORDER_DATE']?></td>
 						        
-						        <td class="quantity">
+						        <td class="quantity"> RM 
 								<?=$product['PO_TOTAL']?>
 					          </td>
-							  
-						        <td class="total"> <?=$product['PO_ADDR'] ?></td>
-                                <td class="price"> <?=$product['PO_NAME']?></td>
+						        <td class="addr"> <?=$product['PO_ADDR'] ?></td>
+                                <td class="item"> <?=$product['PO_NAME']?></td>
 						        
 							  <?php endforeach; ?> 
 						    </tbody>

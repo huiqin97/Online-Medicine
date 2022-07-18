@@ -55,17 +55,21 @@
 			$err_message="Please enter email";
 		}
 
-		try{
-			$cust_id = $_SESSION['id'];
-			
-			$order_obj->addPO($cart_total,$cust_id,$name,$addr,$phone,$email);
-	
-			$order_obj->updateCartStatus($cust_id);
-			header("location: status.php");
-		}catch(PDOException $error){
-			
-			echo 'Error While Checkout: ' . $error->getMessage();
+		if(empty($err_message))
+		{
+			try{
+				$cust_id = $_SESSION['id'];
+				
+				$order_obj->addPO($cart_total,$cust_id,$name,$addr,$phone,$email);
+		
+				$order_obj->updateCartStatus($cust_id);
+				header("location: status.php");
+			}catch(PDOException $error){
+				
+				echo 'Error While Checkout: ' . $error->getMessage();
+			}
 		}
+
 	}
 
     include('nav-bar/top_nav.php');  ?>

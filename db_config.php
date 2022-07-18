@@ -4,6 +4,8 @@ define('DB_SERVER', '127.0.0.1');
 define('DB_USERNAME', 'root');
 define('DB_PASSWORD', '');
 define('DB_NAME', 'onlinemedicine');
+// define('DB_NAME', 'website');
+
     function connectDB() {
 
         $conn = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_NAME);
@@ -44,6 +46,7 @@ define('DB_NAME', 'onlinemedicine');
      }
 
      function getUserInfo($sql, $param_username){
+        $username_err='';
         $conn = connectDB();
         if($stmt = $conn->prepare($sql)){
             // Bind variables to the prepared statement as parameters
@@ -61,16 +64,17 @@ define('DB_NAME', 'onlinemedicine');
                 $username_err = "Oops! Something went wrong. Please try again later.";
             }
 
-            // Close statement
             $stmt->close();
         }
-        $conn->close();
-        
-        if(empty($username_err)){
-            return true;
+       
+        if(!empty($username_err)){
+            $ret =  $username_err;
         }else{
-            return $username_err;
+            $ret = '';
         }
+
+        $conn->close();
+        return $ret;
 
     }
 
@@ -91,9 +95,8 @@ define('DB_NAME', 'onlinemedicine');
 
     function getItemInfo($sql){
         $conn = connectDB();
-
         $result = $conn -> query($sql);
-        $productDetails = $result ->fetch_row();
+        $productDetails = $result->fetch_all();
         $conn->close();
         return $productDetails[0];
     }
@@ -105,10 +108,8 @@ define('DB_NAME', 'onlinemedicine');
         $prod = [];
         $totalCount =0;
 
-        if ($result->num_rows > 0) {
+        if ($result->num_rows) {
             $totalCount = mysqli_num_rows($result);
-            $productDetails = $result->fetch_assoc();
-        
             while($productDetails = $result->fetch_assoc()){
                 array_push($prod,$productDetails);
             }
@@ -134,7 +135,6 @@ define('DB_NAME', 'onlinemedicine');
 
         if ($result->num_rows > 0) {
             $totalCount = $result->num_rows;
-            $productDetails = $result->fetch_assoc();
         
             while($productDetails = $result->fetch_assoc()) {
                 array_push($prod,$productDetails);

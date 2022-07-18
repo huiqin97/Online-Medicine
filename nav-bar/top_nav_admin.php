@@ -44,7 +44,8 @@
 	      <div class="collapse navbar-collapse" id="ftco-nav">
 	        <ul class="navbar-nav ml-auto">
 	          <li class="nav-item active"><a href="admin.php" class="nav-link">Purchase</a></li>
-			  <li class="nav-item active"><a href="admin-product.php?type=" class="nav-link">Product</a></li>
+			  <li class="nav-item active"><a href="admin-product.php?type=" class="nav-link">Available product</a></li>
+			  <li class="nav-item active"><a href="admin-product-unavailable.php?type=" class="nav-link">Unavailable Product</a></li>
 			  <li class="nav-item"><a href="logout.php" class="nav-link">Log Out</a></li>
 
 	        </ul>

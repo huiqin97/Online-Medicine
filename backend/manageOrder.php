@@ -36,7 +36,6 @@ class manageOrder{
     function getAllOrderDetails(){
         $sql = "SELECT product.PRODUCT_ID,product.PRODUCT_NAME,product.PRODUCT_PRICE,cart.PROD_AMT FROM cart JOIN product ON cart.PRODUCT_ID=product.PRODUCT_ID WHERE CART_STATUS='PENDING'";
         $resp = getAllProductInfo($sql);
-
         return $resp['productDetails'];
     }
 

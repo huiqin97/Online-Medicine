@@ -4,20 +4,21 @@ require_once "db_config.php";
  
 // Define variables and initialize with empty values
 $username = $password = $confirm_password = $address = $phone = $email = "";
-$err_message = "";
+// $err_message = "";
 
 // Processing form data when form is submitted $_SERVER["REQUEST_METHOD"] == "POST"
 if(isset($_POST['register'])){
-
+  $err_message = "";
     // Validate username
     if(empty(trim($_POST["cust_name"]))){
         $err_message = "Please enter a username.";
-    } elseif(!preg_match('/^[a-zA-Z0-9_]+$/', trim($_POST["cust_name"]))&& empty($err_message)){
+    } elseif(!preg_match('/^[a-zA-Z0-9_]+$/', trim($_POST["cust_name"])) && empty($err_message)){
         $err_message = "Username can only contain letters, numbers, and underscores.";
     } else{
       $username = trim($_POST["cust_name"]);
     }
 
+    // Validate cust_email
     if(empty(trim($_POST["cust_email"])) && empty($err_message)){
       $err_message = "Please enter your email."; 
     }else{
@@ -26,7 +27,7 @@ if(isset($_POST['register'])){
        $param_email = trim($_POST["cust_email"]);
        $ret = getUserInfo($sql,$param_email);
 
-       if($ret != true){
+       if(!empty($ret)){
          $err_message = $ret;
        }else{
          $email = trim($_POST["cust_email"]);
@@ -52,7 +53,6 @@ if(isset($_POST['register'])){
         }
     }
 
-  
     $phone = trim($_POST["cust_phone"]);
     $address = trim($_POST["cust_address"]);
     

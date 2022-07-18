@@ -11,16 +11,11 @@
     }
 
     $order_obj = new manageOrder();
-	  $resp = $order_obj->checkPOStatus($_SESSION['id']);
-
+	  $resp = $order_obj->checkPOStatus(strval($_SESSION['id']));
     $line1 = 'Your Order Has Been Placed';
     $line2 = "Thank you for ordering with us, we'll contact you by email with your order details.";
-    
-    if($resp == 'COMPLETE'){
-      $line1 = "You Don't Have Order In Process";
-      $line2 = "Grab your daily needs now";
-    }
-    if ($resp == 'DELIVER'){
+
+    if ($resp[0] == "DELIVER"){
       $line1 = 'Your Order Is In Delivery';
       $line2 = "Thank you for ordering with us, please check with the courier to get the delivery details ";
     }

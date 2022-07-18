@@ -20,7 +20,7 @@
 
     $productType = "";
 	$productType = $product_obj->getProductType();
-	$resp = $product_obj->getFeatureProductDetails($productType);
+	$resp = $product_obj->getNonAvailableProductDetails($productType);
 
     if(isset($_POST['form_submit'])){
 		$message="";
@@ -34,10 +34,10 @@
 		{
 			$N = count($check);
 
-			$message="$N product ais set to not available";
+			$message="$N product is set to non-available";
 			for($i=0; $i < $N; $i++)
 			{
-				$admin_obj->updateProductAvailability($check[$i],0);
+				$admin_obj->updateProductAvailability($check[$i],1);
 			}
 			header("location: admin-product.php?type=");
 		}
@@ -50,7 +50,7 @@
         <div class="row no-gutters slider-text align-items-center justify-content-center">
           <div class="col-md-9 ftco-animate text-center">
           	<p class="breadcrumbs"><span class="mr-2"><a href="index.php">Home</a></span> <span>Products</span></p>
-            <h1 class="mb-0 bread" style="color:#6E85B7 ;">Set product to not available</h1>
+            <h1 class="mb-0 bread" style="color:#6E85B7 ;">Set product to available</h1>
           </div>
         </div>
       </div>

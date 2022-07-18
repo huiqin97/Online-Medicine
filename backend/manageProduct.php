@@ -26,7 +26,7 @@ class manageProduct{
 
     function getLatestProduct()
     {
-        $sql = "SELECT * FROM `product` WHERE PRODUCT_AVAILABILITY =1 ORDER BY PRODUCT_ID DESC LIMIT 9";
+        $sql = "SELECT * FROM `product` WHERE PRODUCT_AVAILABILITY =1 ORDER BY PRODUCT_ID DESC LIMIT 8";
         $resp = getAllProductInfo($sql);
         return $resp;
     }
@@ -42,7 +42,19 @@ class manageProduct{
         }
 
         return $resp;
-    
+    }
+
+    function getNonAvailableProductDetails($product_cat="")
+    {
+        if(empty($product_cat)){
+            $sql = "SELECT * FROM `product` WHERE PRODUCT_AVAILABILITY =0 order by PRODUCT_ID";
+            $resp =  getAllProductInfo($sql);
+        }else{
+            $sql = "SELECT * FROM `product`WHERE PRODUCT_AVAILABILITY =0 AND PRODUCT_CAT = ?";
+            $resp =  getFeatureProduct($sql,$product_cat);
+        }
+
+        return $resp;
     }
 
     function getProductDetailsByID($id)

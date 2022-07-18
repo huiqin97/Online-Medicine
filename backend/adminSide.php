@@ -34,4 +34,14 @@ class admin{
         return $resp['productDetails'];
     }
 
+    function updateProductAvailability($po_id,$isAvailable){
+        var_dump($po_id);
+        var_dump($isAvailable);
+        $sql = "UPDATE PRODUCT SET PRODUCT_AVAILABILITY = $isAvailable WHERE PRODUCT_ID =$po_id";
+        try{
+            execStatement($sql);
+        }catch(PDOException $error){
+            echo 'Error when updating product status: ' . $error->getMessage();
+        }
+    }
 }
